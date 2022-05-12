@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import apps.sai.com.movieapp.databinding.FragmentNotificationsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NotificationsFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null

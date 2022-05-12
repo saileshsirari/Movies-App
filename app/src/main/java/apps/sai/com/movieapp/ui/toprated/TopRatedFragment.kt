@@ -1,4 +1,4 @@
-package apps.sai.com.movieapp.ui.nowplaying
+package apps.sai.com.movieapp.ui.toprated
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NowPlayingFragment : Fragment() {
+class TopRatedFragment : Fragment() {
 
     private var _binding: FragmentNowPlayingBinding? = null
     private val adapter = MovieAdapter()
@@ -24,14 +24,14 @@ class NowPlayingFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var viewModel: NowPlayingViewModel
+    lateinit var viewModel: TopRatedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[NowPlayingViewModel::class.java]
+        viewModel = ViewModelProvider(this)[TopRatedViewModel::class.java]
         _binding = FragmentNowPlayingBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.includedLayout.movieList.adapter = adapter
@@ -60,7 +60,7 @@ class NowPlayingFragment : Fragment() {
         // Make sure we cancel the previous job before creating a new one
         job?.cancel()
         job = lifecycleScope.launch {
-            viewModel.nowPlaying().collectLatest {
+            viewModel.topRated().collectLatest {
                 adapter.submitData(it)
             }
         }

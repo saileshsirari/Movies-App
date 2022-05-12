@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clipToPadding="false"
+    android:id="@+id/movie_list"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingEnd="@dimen/card_side_margin"
+    android:paddingStart="@dimen/card_side_margin"
+    android:paddingTop="@dimen/dimen_10"
+    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+    app:spanCount="@integer/grid_columns"
+    tools:listitem="@layout/list_item_movie" />

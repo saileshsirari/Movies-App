@@ -3,7 +3,7 @@ package apps.sai.com.movieapp.di
 import apps.sai.com.movieapp.api.MovieApi
 import apps.sai.com.movieapp.api.MovieRepository
 import apps.sai.com.movieapp.api.MovieRepositoryImpl
-import apps.sai.com.movieapp.ui.nowplaying.MovieUseCase
+import apps.sai.com.movieapp.data.MovieUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

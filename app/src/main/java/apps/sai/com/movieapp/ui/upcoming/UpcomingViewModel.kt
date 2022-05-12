@@ -1,4 +1,4 @@
-package apps.sai.com.movieapp.ui.nowplaying
+package apps.sai.com.movieapp.ui.upcoming
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class NowPlayingViewModel @Inject constructor(private val movieUseCase: MovieUseCase) :
+class UpcomingViewModel @Inject constructor(private val movieUseCase: MovieUseCase) :
     BaseViewModel() {
     private var currentNowPlayingResult: Flow<PagingData<Movie>>? = null
-    fun nowPlaying(): Flow<PagingData<Movie>> {
+    fun upcomingView(): Flow<PagingData<Movie>> {
         val newResult: Flow<PagingData<Movie>> =
-            movieUseCase.nowPlaying().cachedIn(viewModelScope)
+            movieUseCase.upcoming().cachedIn(viewModelScope)
         currentNowPlayingResult = newResult
         return newResult
     }

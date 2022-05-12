@@ -8,20 +8,25 @@
     <fragment
         android:id="@+id/navigation_now_playing"
         android:name="apps.sai.com.movieapp.ui.nowplaying.NowPlayingFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_now_playing"
         tools:layout="@layout/fragment_now_playing" />
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="apps.sai.com.movieapp.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
+        android:id="@+id/navigation_popular"
+        android:name="apps.sai.com.movieapp.ui.popular.PopularFragment"
+        android:label="@string/title_popular"
+        tools:layout="@layout/fragment_now_playing" />
 
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="apps.sai.com.movieapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_top_rated"
+        android:name="apps.sai.com.movieapp.ui.toprated.TopRatedFragment"
+        android:label="@string/title_top_rated"
+        tools:layout="@layout/fragment_now_playing" />
+
+    <fragment
+        android:id="@+id/navigation_upcoming"
+        android:name="apps.sai.com.movieapp.ui.upcoming.UpcomingFragment"
+        android:label="@string/title_upcoming"
+        tools:layout="@layout/fragment_now_playing" />
 </navigation>

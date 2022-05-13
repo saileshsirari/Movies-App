@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class NowPlayingViewModel @Inject constructor(private val movieUseCase: MovieUseCase) :
-    BaseViewModel() {
+class NowPlayingViewModel @Inject constructor(useCase: MovieUseCase) :
+    BaseViewModel(useCase) {
     private var currentNowPlayingResult: Flow<PagingData<Movie>>? = null
     fun nowPlaying(): Flow<PagingData<Movie>> {
         val newResult: Flow<PagingData<Movie>> =

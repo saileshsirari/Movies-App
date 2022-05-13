@@ -4,51 +4,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import apps.sai.com.movieapp.BaseFragment
+import apps.sai.com.movieapp.MobileNavigationDirections
 import apps.sai.com.movieapp.data.MovieAdapter
 import apps.sai.com.movieapp.databinding.FragmentNowPlayingBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class PopularFragment : Fragment() {
+class PopularFragment : BaseFragment<PopularViewModel>() {
 
     private var _binding: FragmentNowPlayingBinding? = null
-    private val adapter = MovieAdapter()
-    private var job: Job? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var viewModel:PopularViewModel
+    override val viewModelClass: Class<PopularViewModel>
+        get() = PopularViewModel::class.java
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[PopularViewModel::class.java]
         _binding = FragmentNowPlayingBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        binding.includedLayout.movieList.adapter = adapter
-        load()
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //nowPlayingViewModel.nowPlayingRequest.value =true
-
-        viewModel.errorLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-
+        val adapter = MovieAdapter{
+            it.id?.let {
+                findNavController().navigate(
+                    MobileNavigationDirections.actionBaseFragmentToDetails(
+                        it
+                    )
+                )
             }
         }
+        binding.includedLayout.movieList.adapter = adapter
+        loadMovies(viewModel.popular(),adapter)
 
+        return root
     }
 
     override fun onDestroyView() {
@@ -56,13 +46,5 @@ class PopularFragment : Fragment() {
         _binding = null
     }
 
-    private fun load() {
-        // Make sure we cancel the previous job before creating a new one
-        job?.cancel()
-        job = lifecycleScope.launch {
-            viewModel.popular().collectLatest {
-                adapter.submitData(it)
-            }
-        }
-    }
+
 }

@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class UpcomingViewModel @Inject constructor(private val movieUseCase: MovieUseCase) :
-    BaseViewModel() {
+class UpcomingViewModel @Inject constructor(useCase: MovieUseCase) :
+    BaseViewModel(useCase) {
     private var currentNowPlayingResult: Flow<PagingData<Movie>>? = null
-    fun upcomingView(): Flow<PagingData<Movie>> {
+    fun upcoming(): Flow<PagingData<Movie>> {
         val newResult: Flow<PagingData<Movie>> =
             movieUseCase.upcoming().cachedIn(viewModelScope)
         currentNowPlayingResult = newResult

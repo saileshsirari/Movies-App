@@ -1,5 +1,8 @@
 package apps.sai.com.movieapp.api
 
+import apps.sai.com.movieapp.data.Genre
+import apps.sai.com.movieapp.data.GenreResponse
+import apps.sai.com.movieapp.data.MovieDetailsResponse
 import apps.sai.com.movieapp.data.MovieResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -7,33 +10,39 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApi {
-    @GET("now_playing")
+    @GET("movie/now_playing")
     suspend fun nowPlaying(
         @Query("page") page: Int,
     ): MovieResponse
 
-    @GET("popular")
+    @GET("movie/popular")
     suspend fun popular(
         @Query("page") page: Int,
     ): MovieResponse
 
-    @GET("top_rated")
+    @GET("movie/top_rated")
     suspend fun topRated(
         @Query("page") page: Int,
     ): MovieResponse
 
-    @GET("upcoming")
+    @GET("movie/upcoming")
     suspend fun upcoming(
         @Query("page") page: Int,
     ): MovieResponse
 
+    @GET("genre/movie/list")
+    suspend fun genres(): GenreResponse
+
+    @GET("movie/{id}")
+    suspend fun movieDetails(@Path("id") id: Int?): MovieDetailsResponse
+
     companion object {
         private const val BASE_URL =
-            "https://api.themoviedb.org/3/movie/"
+            "https://api.themoviedb.org/3/"
 
         fun create(apiKey: String): MovieApi {
             val loggingInterceptor = HttpLoggingInterceptor().apply {

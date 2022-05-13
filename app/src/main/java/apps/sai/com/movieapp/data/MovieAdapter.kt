@@ -1,7 +1,5 @@
 package apps.sai.com.movieapp.data
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -10,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import apps.sai.com.movieapp.databinding.ListItemMovieBinding
 
 
-class MovieAdapter :
+class MovieAdapter constructor(private val onSelect: (Movie) -> Unit) :
     PagingDataAdapter<Movie, MovieAdapter.GalleryViewHolder>(GalleryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
@@ -24,9 +22,9 @@ class MovieAdapter :
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        val photo = getItem(position)
-        if (photo != null) {
-            holder.bind(photo)
+        val movie = getItem(position)
+        if (movie != null) {
+            holder.bind(movie, onSelect)
         }
     }
 
@@ -34,18 +32,20 @@ class MovieAdapter :
         private val binding: ListItemMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.setClickListener { view ->
-                binding.movie?.let { movie ->
-                    val uri = Uri.parse(movie.backdropPath)
-                    val intent = Intent(Intent.ACTION_VIEW, uri)
-                    view.context.startActivity(intent)
-                }
-            }
+
         }
 
-        fun bind(item: Movie) {
+        fun bind(item: Movie, onSelect: (Movie) -> Unit) {
             binding.apply {
                 movie = item
+                if (!item.genres.isNullOrEmpty()) {
+                    binding.title.text = item.genres[0].name
+                }
+                setClickListener { _ ->
+                    movie?.let { movie ->
+                        onSelect(movie)
+                    }
+                }
                 executePendingBindings()
             }
         }

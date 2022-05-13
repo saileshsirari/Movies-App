@@ -3,10 +3,9 @@ package apps.sai.com.movieapp.api
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import apps.sai.com.movieapp.data.Movie
-import apps.sai.com.movieapp.data.MoviePagingSource
-import apps.sai.com.movieapp.data.MovieType
+import apps.sai.com.movieapp.data.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class MovieRepositoryImpl(private val api: MovieApi) : MovieRepository {
     override fun nowPlaying(): Flow<PagingData<Movie>> {
@@ -35,6 +34,18 @@ class MovieRepositoryImpl(private val api: MovieApi) : MovieRepository {
             config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
             pagingSourceFactory = { MoviePagingSource(api, MovieType.UPCOMING) }
         ).flow
+    }
+
+    override fun genres(): Flow<GenreResponse> {
+        return flow {
+            emit(api.genres())
+        }
+    }
+
+    override fun movieDetails(id: Int): Flow<MovieDetailsResponse> {
+        return flow {
+            emit(api.movieDetails(id))
+        }
     }
 
     companion object {

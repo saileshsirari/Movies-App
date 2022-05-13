@@ -19,6 +19,5 @@ object RepositoryModule {
     @Provides
     fun provideMovieUseCase(repository: MovieRepository) =
         MovieUseCase(repository)
-
 }
 

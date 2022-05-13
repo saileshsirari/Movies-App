@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_now_playing">
+    <action
+        android:id="@+id/action_base_fragment_to_details"
+        app:destination="@id/details_fragment" />
 
     <fragment
         android:id="@+id/navigation_now_playing"
@@ -15,18 +18,28 @@
         android:id="@+id/navigation_popular"
         android:name="apps.sai.com.movieapp.ui.popular.PopularFragment"
         android:label="@string/title_popular"
-        tools:layout="@layout/fragment_now_playing" />
+        tools:layout="@layout/fragment_popular" />
 
 
     <fragment
         android:id="@+id/navigation_top_rated"
         android:name="apps.sai.com.movieapp.ui.toprated.TopRatedFragment"
         android:label="@string/title_top_rated"
-        tools:layout="@layout/fragment_now_playing" />
+        tools:layout="@layout/fragment_top_rated" />
 
     <fragment
         android:id="@+id/navigation_upcoming"
         android:name="apps.sai.com.movieapp.ui.upcoming.UpcomingFragment"
         android:label="@string/title_upcoming"
-        tools:layout="@layout/fragment_now_playing" />
+        tools:layout="@layout/fragment_upcoming" />
+
+    <fragment android:id="@+id/details_fragment"
+        android:name="apps.sai.com.movieapp.ui.details.MovieDetailsFragment"
+        tools:layout="@layout/fragment_movie_details">
+        <argument android:name="movieId"
+            android:defaultValue="-1"
+            app:argType="integer"/>
+    </fragment>
+
+
 </navigation>

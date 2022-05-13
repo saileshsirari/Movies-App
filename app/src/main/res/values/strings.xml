@@ -5,4 +5,6 @@
     <string name="title_top_rated">Top Rated</string>
     <string name="title_upcoming">Upcoming</string>
     <string name="movie_item_image">Picture of movie</string>
+    <string name="backdrop_image">Backdrop image</string>
+    <string name="poster_image">Poster image</string>
 </resources>

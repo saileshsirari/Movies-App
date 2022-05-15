@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import apps.sai.com.movieapp.BaseFragment
@@ -37,6 +38,7 @@ class MovieDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        (requireActivity() as AppCompatActivity).title =""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ class MovieDetailsFragment :
                 if (id != -1) {
                     viewModel.loadMovieDetails(it.movieId).collect {
                         viewModel.movieDetailResponse.value = it
+                        (requireActivity() as AppCompatActivity).title =it.originalTitle
                     }
                 }
             }

@@ -37,6 +37,12 @@ interface MovieApi {
     @GET("genre/movie/list")
     suspend fun genres(): GenreResponse
 
+    @GET("search/movie")
+    suspend fun search(
+        @Query("page") page: Int,
+        @Query("query") query: String,
+    ): MovieResponse
+
     @GET("movie/{id}")
     suspend fun movieDetails(@Path("id") id: Int?): MovieDetailsResponse
 

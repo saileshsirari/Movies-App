@@ -10,7 +10,8 @@ private const val STARTING_PAGE_INDEX = 1
 
 class MoviePagingSource(
     private val movieApi: MovieApi,
-    private val movieType: MovieType
+    private val movieType: MovieType,
+    private val query:String =""
 ) : PagingSource<Int, Movie>() {
 
     // The refresh key is used for subsequent refresh calls to PagingSource.load after the initial load
@@ -29,6 +30,7 @@ class MoviePagingSource(
                 MovieType.POPULAR -> movieApi.popular(position)
                 MovieType.TOP_RATED -> movieApi.topRated(position)
                 MovieType.UPCOMING -> movieApi.upcoming(position)
+                MovieType.SEARCH->movieApi.search(position,query)
             }
             val items = response.results
             val nextKey = if (items.isEmpty()) {

@@ -36,6 +36,13 @@ class MovieRepositoryImpl(private val api: MovieApi) : MovieRepository {
         ).flow
     }
 
+    override fun search(query:String): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
+            pagingSourceFactory = { MoviePagingSource(api, MovieType.SEARCH,query) }
+        ).flow
+    }
+
     override fun genres(): Flow<GenreResponse> {
         return flow {
             emit(api.genres())

@@ -8,6 +8,10 @@
         android:id="@+id/action_base_fragment_to_details"
         app:destination="@id/details_fragment" />
 
+    <action
+        android:id="@+id/action_base_fragment_to_search"
+        app:destination="@id/navigation_search" />
+
     <fragment
         android:id="@+id/navigation_now_playing"
         android:name="apps.sai.com.movieapp.ui.nowplaying.NowPlayingFragment"
@@ -39,6 +43,18 @@
         <argument android:name="movieId"
             android:defaultValue="-1"
             app:argType="integer"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="apps.sai.com.movieapp.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" >
+
+        <argument android:name="query"
+            android:defaultValue=""
+            app:argType="string"/>
     </fragment>
 
 

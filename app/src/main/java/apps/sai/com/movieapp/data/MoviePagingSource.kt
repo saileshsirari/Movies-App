@@ -3,7 +3,6 @@ package apps.sai.com.movieapp.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import apps.sai.com.movieapp.api.MovieApi
-import apps.sai.com.movieapp.db.FavDao
 import retrofit2.HttpException
 import java.io.IOException
 

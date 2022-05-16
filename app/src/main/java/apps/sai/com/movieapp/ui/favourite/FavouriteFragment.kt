@@ -64,7 +64,6 @@ class FavouriteFragment : BaseFragment<SearchViewModel>() {
             viewModel.favouritesMovies().collect {
                 adapter.submitData(it)
             }
-
         }
     }
 

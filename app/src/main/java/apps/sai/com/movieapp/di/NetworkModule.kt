@@ -5,7 +5,7 @@ import androidx.room.Room
 import apps.sai.com.movieapp.api.ApiKey
 import apps.sai.com.movieapp.api.MovieApi
 import apps.sai.com.movieapp.db.AppDatabase
-import apps.sai.com.movieapp.db.FavDao
+import apps.sai.com.movieapp.db.MovieDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +30,7 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideChannelDao(appDatabase: AppDatabase): FavDao {
+    fun provideChannelDao(appDatabase: AppDatabase): MovieDao {
         return appDatabase.getFavDao()
     }
 

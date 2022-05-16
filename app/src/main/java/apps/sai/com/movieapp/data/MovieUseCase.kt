@@ -8,7 +8,7 @@ class MovieUseCase(private val repository: MovieRepository) {
     fun topRated() = repository.topRated()
     fun upcoming() = repository.upcoming()
     fun search(query:String) = repository.search(query)
-    fun genres() = repository.genres()
+    suspend fun genres() = repository.genres()
     fun movieDetails(id:Int) = repository.movieDetails(id)
     fun favouritesMovies() =repository.favouritesMovies()
     fun favourite(id:Int) = repository.isFavourite(id)

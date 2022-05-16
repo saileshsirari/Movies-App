@@ -38,7 +38,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
                     genreResponse.genres.filter { genre ->
                         movie.genreIds.contains(genre.id)
                     }.map {
-                        if( movie.genres ==null) {
+                        if( movie.genres.isNullOrEmpty()) {
                             movie.genres = arrayListOf()
                         }
                         movie.genres.add(it)

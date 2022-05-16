@@ -4,11 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import apps.sai.com.movieapp.data.*
-import apps.sai.com.movieapp.db.FavDao
+import apps.sai.com.movieapp.db.MovieDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class MovieRepositoryImpl(private val api: MovieApi, private val favDao: FavDao) : MovieRepository {
+class MovieRepositoryImpl(private val api: MovieApi, private val movieDao: MovieDao) : MovieRepository {
     override fun nowPlaying(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
@@ -44,16 +44,24 @@ class MovieRepositoryImpl(private val api: MovieApi, private val favDao: FavDao)
         ).flow
     }
 
-    override fun genres(): Flow<GenreResponse> {
+    override suspend fun genres(): Flow<GenreResponse> {
+        val list = movieDao.getAllGenres()
+        if(!list.isNullOrEmpty()){
+            return flow {
+                emit(GenreResponse(ArrayList(list)))
+            }
+        }
         return flow {
-            emit(api.genres())
+            val genreResponse = api.genres()
+            movieDao.insertAllGenre(genreResponse.genres)
+            emit(genreResponse)
         }
     }
 
     override fun favouritesMovies(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
-            pagingSourceFactory = { favDao.getAll() }
+            pagingSourceFactory = { movieDao.getAll() }
         ).flow
     }
 
@@ -65,15 +73,15 @@ class MovieRepositoryImpl(private val api: MovieApi, private val favDao: FavDao)
 
 
     override fun isFavourite(id: Int): Flow<Movie?> {
-        return favDao.getFav(id)
+        return movieDao.getFav(id)
     }
 
     override suspend fun favourite(movie: Movie) {
-        favDao.insertAll(listOf(movie))
+        movieDao.insertAll(listOf(movie))
     }
 
     override suspend fun removeFavourite(movie: Movie) {
-        favDao.delete(movie)
+        movieDao.delete(movie)
     }
 
     companion object {

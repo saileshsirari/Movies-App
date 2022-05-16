@@ -31,7 +31,7 @@ class NetworkModule {
 
     @Provides
     fun provideChannelDao(appDatabase: AppDatabase): MovieDao {
-        return appDatabase.getFavDao()
+        return appDatabase.movieDao()
     }
 
     @Provides

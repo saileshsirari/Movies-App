@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import apps.sai.com.movieapp.BaseFragment
 import apps.sai.com.movieapp.R
+import apps.sai.com.movieapp.data.Movie.Companion.format
 import apps.sai.com.movieapp.databinding.FragmentMovieDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
@@ -55,12 +56,9 @@ class MovieDetailsFragment :
         job = lifecycleScope.launchWhenStarted {
             args?.let {
                 if (it.movieId != -1) {
-                    viewModel.loadMovieDetails(it.movieId).collect {
-                        if(it.genreIds.isNullOrEmpty()){
-                            it.genreIds = arrayListOf()
-                        }
-                        viewModel.movieDetailResponse.value = it
-                        (requireActivity() as AppCompatActivity).title = it.originalTitle
+                    viewModel.loadMovieDetails(it.movieId).collect { movie ->
+                        movie.format(requireContext())
+                        viewModel.movieDetailResponse.value = movie
                     }
                     viewModel.favourite(it.movieId).collect { fav ->
                         viewModel.favourite = fav != null && fav.id == it.movieId

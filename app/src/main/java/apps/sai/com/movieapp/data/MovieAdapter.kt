@@ -38,9 +38,6 @@ class MovieAdapter constructor(private val onSelect: (Movie) -> Unit) :
         fun bind(item: Movie, onSelect: (Movie) -> Unit) {
             binding.apply {
                 movie = item
-                if (!item.genres.isNullOrEmpty()) {
-                    binding.title.text = item.genres[0].name
-                }
                 setClickListener { _ ->
                     movie?.let { movie ->
                         onSelect(movie)

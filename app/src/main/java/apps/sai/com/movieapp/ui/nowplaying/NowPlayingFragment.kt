@@ -27,7 +27,7 @@ class NowPlayingFragment : BaseFragment<NowPlayingViewModel>() {
         _binding = FragmentNowPlayingBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val adapter = MovieAdapter{
-            it.id?.let {
+            it.id.let {
                 findNavController().navigate(
                     MobileNavigationDirections.actionBaseFragmentToDetails(
                         it

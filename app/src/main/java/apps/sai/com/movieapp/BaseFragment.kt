@@ -8,7 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.paging.map
+import apps.sai.com.movieapp.Utils.formatDate
+import apps.sai.com.movieapp.Utils.getFormatedDate
+import apps.sai.com.movieapp.Utils.safe
+import apps.sai.com.movieapp.Utils.toDate
 import apps.sai.com.movieapp.data.Movie
+import apps.sai.com.movieapp.data.Movie.Companion.format
 import apps.sai.com.movieapp.data.MovieAdapter
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
@@ -43,6 +48,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
                         }
                         movie.genres.add(it)
                     }
+                    movie.format(requireContext())
                     movie
                 }
             }
@@ -52,4 +58,5 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
                 }
         }
     }
+
 }

@@ -11,4 +11,8 @@
     <string name="search_hint">Enter movie name</string>
     <string name="title_search">Search</string>
     <string name="title_favourite">Favourites</string>
+    <string name="release_date">"Release date: "</string>
+    <string name="language">"Lanuguage: "</string>
+    <string name="ratings">"Ratings: "</string>
+    <string name="votes">Votes</string>
 </resources>

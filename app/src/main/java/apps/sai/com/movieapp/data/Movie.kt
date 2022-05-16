@@ -1,9 +1,15 @@
 package apps.sai.com.movieapp.data
 
+import android.content.Context
 import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import apps.sai.com.movieapp.R
+import apps.sai.com.movieapp.Utils
+import apps.sai.com.movieapp.Utils.format2Places
 import com.google.gson.annotations.SerializedName
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Entity
 data class Movie(
@@ -22,6 +28,34 @@ data class Movie(
     @SerializedName("video") val video: Boolean? = null,
     @SerializedName("vote_average") val voteAverage: Double? = null,
     @SerializedName("vote_count") val voteCount: Int? = null
-)
+){
+    var releaseDateFormatted: String? = null
+    var spokenLanguagesFormatted:String? =null
+    var genresFormatted:String? =null
+    var voteAverageFormatted:String ? =null
+    companion object {
+        fun Movie.format(context: Context) {
+            releaseDateFormatted =
+                "${context.getString(R.string.release_date)} ${Utils.getFormatedDate(releaseDate)}"
+            originalLanguage?.let {
+                spokenLanguagesFormatted =
+                    "${context.getString(R.string.language)} ${Locale(it).displayName}"
+            }
+            voteAverageFormatted = "${context.getString(R.string.ratings)} " +
+                    "${voteAverage?.format2Places()} ( $voteCount ${context.getString(R.string.votes)} )"
+
+            genresFormatted =""
+            if(!genres.isNullOrEmpty()) {
+                genres.forEach {
+                    genresFormatted += it.name + " "
+                }
+            }
+
+            if (genreIds.isNullOrEmpty()) {
+                genreIds = arrayListOf()
+            }
+        }
+    }
+}
 
 

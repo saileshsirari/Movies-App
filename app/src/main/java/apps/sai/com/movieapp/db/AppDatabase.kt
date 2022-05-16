@@ -9,5 +9,5 @@ import apps.sai.com.movieapp.data.Movie
 @Database(entities= [Movie::class,Genre::class],version = 1, )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun getFavDao(): MovieDao
+    abstract fun movieDao(): MovieDao
 }

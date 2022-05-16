@@ -11,6 +11,7 @@ import apps.sai.com.movieapp.ui.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.onStart
 
 @AndroidEntryPoint
 class FavouriteFragment : BaseFragment<SearchViewModel>() {
@@ -32,7 +33,9 @@ class FavouriteFragment : BaseFragment<SearchViewModel>() {
         val adapter = initMovieAdapter()
         loadFavourites(adapter)
         binding.includedLayout.movieList.adapter = adapter
-
+        adapter.addLoadStateListener {
+            binding.tvFav.visibility =if(adapter.itemCount>0) View.GONE else View.VISIBLE
+        }
         return root
     }
 
@@ -54,6 +57,7 @@ class FavouriteFragment : BaseFragment<SearchViewModel>() {
             viewModel.favouritesMovies().collect {
                 adapter.submitData(it)
             }
+
         }
     }
 }

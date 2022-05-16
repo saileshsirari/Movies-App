@@ -35,14 +35,21 @@ data class Movie(
     var voteAverageFormatted:String ? =null
     companion object {
         fun Movie.format(context: Context) {
-            releaseDateFormatted =
-                "${context.getString(R.string.release_date)} ${Utils.getFormatedDate(releaseDate)}"
+            releaseDate?.let {
+                releaseDateFormatted =
+                    "${context.getString(R.string.release_date)} ${Utils.getFormatedDate(it)}"
+            }
+
             originalLanguage?.let {
                 spokenLanguagesFormatted =
                     "${context.getString(R.string.language)} ${Locale(it).displayName}"
             }
-            voteAverageFormatted = "${context.getString(R.string.ratings)} " +
-                    "${voteAverage?.format2Places()} ( $voteCount ${context.getString(R.string.votes)} )"
+            voteCount?.let {
+                if(it>0) {
+                    voteAverageFormatted = "${context.getString(R.string.ratings)} " +
+                            "${voteAverage?.format2Places()} ( $voteCount ${context.getString(R.string.votes)} )"
+                }
+            }
 
             genresFormatted =""
             if(!genres.isNullOrEmpty()) {

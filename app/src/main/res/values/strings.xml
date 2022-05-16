@@ -15,4 +15,5 @@
     <string name="language">"Lanuguage: "</string>
     <string name="ratings">"Ratings: "</string>
     <string name="votes">Votes</string>
+    <string name="no_fav">Favoutites will appear here</string>
 </resources>

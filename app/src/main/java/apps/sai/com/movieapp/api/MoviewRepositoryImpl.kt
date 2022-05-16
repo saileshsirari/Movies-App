@@ -4,10 +4,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import apps.sai.com.movieapp.data.*
+import apps.sai.com.movieapp.db.FavDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class MovieRepositoryImpl(private val api: MovieApi) : MovieRepository {
+class MovieRepositoryImpl(private val api: MovieApi, private val favDao: FavDao) : MovieRepository {
     override fun nowPlaying(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
@@ -36,10 +37,10 @@ class MovieRepositoryImpl(private val api: MovieApi) : MovieRepository {
         ).flow
     }
 
-    override fun search(query:String): Flow<PagingData<Movie>> {
+    override fun search(query: String): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
-            pagingSourceFactory = { MoviePagingSource(api, MovieType.SEARCH,query) }
+            pagingSourceFactory = { MoviePagingSource(api, MovieType.SEARCH, query) }
         ).flow
     }
 
@@ -49,10 +50,30 @@ class MovieRepositoryImpl(private val api: MovieApi) : MovieRepository {
         }
     }
 
-    override fun movieDetails(id: Int): Flow<MovieDetailsResponse> {
+    override fun favouritesMovies(): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(enablePlaceholders = false, pageSize = NETWORK_PAGE_SIZE),
+            pagingSourceFactory = { favDao.getAll() }
+        ).flow
+    }
+
+    override fun movieDetails(id: Int): Flow<Movie> {
         return flow {
             emit(api.movieDetails(id))
         }
+    }
+
+
+    override fun isFavourite(id: Int): Flow<Movie?> {
+        return favDao.getFav(id)
+    }
+
+    override suspend fun favourite(movie: Movie) {
+        favDao.insertAll(listOf(movie))
+    }
+
+    override suspend fun removeFavourite(movie: Movie) {
+        favDao.delete(movie)
     }
 
     companion object {

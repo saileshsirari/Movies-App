@@ -15,19 +15,19 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.zip
 
- abstract class BaseFragment<V : BaseViewModel> : Fragment() {
+abstract class BaseFragment<V : BaseViewModel> : Fragment() {
     private var job: Job? = null
     val viewModel: V by lazy { ViewModelProvider(this)[viewModelClass] }
     protected abstract val viewModelClass: Class<V>
 
-     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-         viewModel.errorLiveData.observe(viewLifecycleOwner) {
-             it?.let {
-                 Toast.makeText(requireContext(),"Error "+it,Toast.LENGTH_LONG).show()
-             }
-         }
-     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.errorLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                Toast.makeText(requireContext(), "Error " + it, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
     @OptIn(FlowPreview::class)
     fun loadMovies(flow: Flow<PagingData<Movie>>, adapter: MovieAdapter) {
@@ -38,13 +38,18 @@ import kotlinx.coroutines.flow.zip
                     genreResponse.genres.filter { genre ->
                         movie.genreIds.contains(genre.id)
                     }.map {
+                        if( movie.genres ==null) {
+                            movie.genres = arrayListOf()
+                        }
                         movie.genres.add(it)
                     }
                     movie
                 }
-            }.collect { value ->
-                adapter.submitData(value)
             }
+                .collect { value ->
+
+                    adapter.submitData(value)
+                }
         }
     }
 }

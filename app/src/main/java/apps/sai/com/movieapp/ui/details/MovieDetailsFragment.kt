@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import apps.sai.com.movieapp.BaseFragment
+import apps.sai.com.movieapp.R
 import apps.sai.com.movieapp.databinding.FragmentMovieDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
@@ -38,13 +39,13 @@ class MovieDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        (requireActivity() as AppCompatActivity).title =""
+        (requireActivity() as AppCompatActivity).title = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         args?.movieId?.let {
-           loadMovieDetails()
+            loadMovieDetails()
         }
     }
 
@@ -53,14 +54,27 @@ class MovieDetailsFragment :
         job?.cancel()
         job = lifecycleScope.launchWhenStarted {
             args?.let {
-                if (id != -1) {
+                if (it.movieId != -1) {
                     viewModel.loadMovieDetails(it.movieId).collect {
+                        if(it.genreIds.isNullOrEmpty()){
+                            it.genreIds = arrayListOf()
+                        }
                         viewModel.movieDetailResponse.value = it
-                        (requireActivity() as AppCompatActivity).title =it.originalTitle
+                        (requireActivity() as AppCompatActivity).title = it.originalTitle
+                    }
+                    viewModel.favourite(it.movieId).collect { fav ->
+                        viewModel.favourite = fav != null && fav.id == it.movieId
+                        loadIcon()
                     }
                 }
             }
         }
     }
 
+    private fun loadIcon() {
+        binding.ivFav.setImageResource(
+            if (viewModel.favourite)
+                R.drawable.ic_favorite_24dp else R.drawable.ic_favorite_border_24dp
+        )
+    }
 }

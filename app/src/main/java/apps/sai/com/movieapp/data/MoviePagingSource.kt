@@ -3,6 +3,7 @@ package apps.sai.com.movieapp.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import apps.sai.com.movieapp.api.MovieApi
+import apps.sai.com.movieapp.db.FavDao
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -11,7 +12,7 @@ private const val STARTING_PAGE_INDEX = 1
 class MoviePagingSource(
     private val movieApi: MovieApi,
     private val movieType: MovieType,
-    private val query:String =""
+    private val query:String ="",
 ) : PagingSource<Int, Movie>() {
 
     // The refresh key is used for subsequent refresh calls to PagingSource.load after the initial load

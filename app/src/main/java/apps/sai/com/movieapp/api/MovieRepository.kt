@@ -4,6 +4,7 @@ import androidx.paging.PagingData
 import apps.sai.com.movieapp.data.GenreResponse
 import apps.sai.com.movieapp.data.Movie
 import apps.sai.com.movieapp.data.MovieDetailsResponse
+import apps.sai.com.movieapp.db.Favourite
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -13,7 +14,9 @@ interface MovieRepository {
     fun popular(): Flow<PagingData<Movie>>
     fun search(query: String): Flow<PagingData<Movie>>
     fun genres(): Flow<GenreResponse>
-    fun movieDetails(id: Int): Flow<MovieDetailsResponse>
-
-
+    fun movieDetails(id: Int): Flow<Movie>
+    fun favouritesMovies(): Flow<PagingData<Movie>>
+    fun isFavourite(id: Int): Flow<Movie?>
+    suspend fun favourite(movie: Movie)
+    suspend fun removeFavourite(movie: Movie)
 }

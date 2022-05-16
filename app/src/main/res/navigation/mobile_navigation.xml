@@ -11,6 +11,9 @@
     <action
         android:id="@+id/action_base_fragment_to_search"
         app:destination="@id/navigation_search" />
+    <action
+        android:id="@+id/action_base_fragment_to_fav"
+        app:destination="@id/navigation_fav" />
 
     <fragment
         android:id="@+id/navigation_now_playing"
@@ -55,6 +58,13 @@
         <argument android:name="query"
             android:defaultValue=""
             app:argType="string"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_fav"
+        android:name="apps.sai.com.movieapp.ui.favourite.FavouriteFragment"
+        android:label="@string/title_favourite"
+        tools:layout="@layout/fragment_fav" >
     </fragment>
 
 

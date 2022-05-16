@@ -1,9 +1,6 @@
 package apps.sai.com.movieapp.api
 
-import apps.sai.com.movieapp.data.Genre
-import apps.sai.com.movieapp.data.GenreResponse
-import apps.sai.com.movieapp.data.MovieDetailsResponse
-import apps.sai.com.movieapp.data.MovieResponse
+import apps.sai.com.movieapp.data.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,7 +41,7 @@ interface MovieApi {
     ): MovieResponse
 
     @GET("movie/{id}")
-    suspend fun movieDetails(@Path("id") id: Int?): MovieDetailsResponse
+    suspend fun movieDetails(@Path("id") id: Int?): Movie
 
     companion object {
         private const val BASE_URL =

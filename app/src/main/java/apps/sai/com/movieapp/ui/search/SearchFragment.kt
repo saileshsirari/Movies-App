@@ -1,16 +1,14 @@
 package apps.sai.com.movieapp.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import apps.sai.com.movieapp.BaseFragment
 import apps.sai.com.movieapp.MobileNavigationDirections
+import apps.sai.com.movieapp.R
 import apps.sai.com.movieapp.data.MovieAdapter
 import apps.sai.com.movieapp.databinding.FragmentSearchBinding
-import apps.sai.com.movieapp.ui.details.MovieDetailsFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,6 +42,12 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
         }
 
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.menu_search).isVisible = false
+        menu.findItem(R.id.menu_favourite).isVisible = false
     }
 
     override fun onDestroyView() {

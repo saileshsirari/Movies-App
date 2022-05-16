@@ -1,9 +1,7 @@
 package apps.sai.com.movieapp.ui.details
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -48,6 +46,11 @@ class MovieDetailsFragment :
         args?.movieId?.let {
             loadMovieDetails()
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.menu_search).isVisible = false
+        menu.findItem(R.id.menu_favourite).isVisible = false
     }
 
     @OptIn(FlowPreview::class)

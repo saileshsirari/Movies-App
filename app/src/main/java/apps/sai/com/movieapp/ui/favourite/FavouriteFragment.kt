@@ -1,15 +1,14 @@
 package apps.sai.com.movieapp.ui.favourite
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.paging.map
 import apps.sai.com.movieapp.BaseFragment
 import apps.sai.com.movieapp.MobileNavigationDirections
+import apps.sai.com.movieapp.R
 import apps.sai.com.movieapp.data.Movie
 import apps.sai.com.movieapp.data.MovieAdapter
 import apps.sai.com.movieapp.databinding.FragmentFavBinding
@@ -51,6 +50,11 @@ class FavouriteFragment : BaseFragment<SearchViewModel>() {
         binding.includedLayout.movieList.adapter = adapter
 
         return root
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.findItem(R.id.menu_search).isVisible = false
+        menu.findItem(R.id.menu_favourite).isVisible = false
     }
 
     override fun onDestroyView() {

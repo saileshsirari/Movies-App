@@ -27,15 +27,7 @@ class UpcomingFragment : BaseFragment<UpcomingViewModel>() {
     ): View {
         _binding = FragmentNowPlayingBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val adapter = MovieAdapter {
-            it.id?.let {
-                findNavController().navigate(
-                    MobileNavigationDirections.actionBaseFragmentToDetails(
-                        it
-                    )
-                )
-            }
-        }
+        val adapter = initMovieAdapter()
         binding.includedLayout.movieList.adapter = adapter
         loadMovies(viewModel.upcoming(), adapter)
         return root

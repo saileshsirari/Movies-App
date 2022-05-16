@@ -7,6 +7,7 @@ import apps.sai.com.movieapp.data.Movie
 import apps.sai.com.movieapp.data.MovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,7 +18,9 @@ class MovieDetailsViewModel @Inject constructor(private val useCase: MovieUseCas
     var favourite = false
 
     fun loadMovieDetails(id: Int): Flow<Movie> {
-        return useCase.movieDetails(id)
+        return useCase.movieDetails(id).catch {
+            errorLiveData.postValue("Error happened")
+        }
     }
 
     fun favClicked(id: Int) {

@@ -5,18 +5,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.paging.map
-import apps.sai.com.movieapp.Utils.formatDate
-import apps.sai.com.movieapp.Utils.getFormatedDate
-import apps.sai.com.movieapp.Utils.safe
-import apps.sai.com.movieapp.Utils.toDate
 import apps.sai.com.movieapp.data.Movie
 import apps.sai.com.movieapp.data.Movie.Companion.format
 import apps.sai.com.movieapp.data.MovieAdapter
@@ -44,17 +38,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.errorLiveData.observe(viewLifecycleOwner) {
             it?.let {
-                Toast.makeText(requireContext(), "Error " + it, Toast.LENGTH_LONG).show()
-            }
-        }
-        findNavController().addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id) {
-                R.id.navigation_details_fragment, R.id.navigation_search -> {
-
-                }
-                else -> {
-
-                }
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -68,7 +52,7 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
                     genreResponse.genres.filter { genre ->
                         movie.genreIds.contains(genre.id)
                     }.map {
-                        if( movie.genres.isNullOrEmpty()) {
+                        if (movie.genres.isNullOrEmpty()) {
                             movie.genres = arrayListOf()
                         }
                         movie.genres.add(it)
@@ -76,12 +60,24 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
                     movie.format(requireContext())
                     movie
                 }
-            }
-                .collect { value ->
+            }.collect { value ->
 
-                    adapter.submitData(value)
-                }
+                adapter.submitData(value)
+            }
         }
+    }
+
+    fun initMovieAdapter(): MovieAdapter {
+        val adapter = MovieAdapter {
+            it.id.let {
+                findNavController().navigate(
+                    MobileNavigationDirections.actionBaseFragmentToDetails(
+                        it
+                    )
+                )
+            }
+        }
+        return adapter
     }
 
 }

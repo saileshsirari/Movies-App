@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.forEach
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -67,9 +65,6 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
-
-
-
 
         return true
     }

@@ -10,6 +10,6 @@
     android:paddingEnd="@dimen/card_side_margin"
     android:paddingStart="@dimen/card_side_margin"
     android:paddingTop="@dimen/dimen_10"
-    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
     app:spanCount="@integer/grid_columns"
     tools:listitem="@layout/list_item_movie" />

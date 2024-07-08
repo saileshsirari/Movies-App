@@ -46,7 +46,7 @@ class MovieRepositoryImpl(private val api: MovieApi, private val movieDao: Movie
 
     override suspend fun genres(): Flow<GenreResponse> {
         val list = movieDao.getAllGenres()
-        if(!list.isNullOrEmpty()){
+        if(list.isNotEmpty()){
             return flow {
                 emit(GenreResponse(ArrayList(list)))
             }

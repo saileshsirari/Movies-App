@@ -3,8 +3,7 @@ name: Android CI
 on:
   workflow_dispatch:
 jobs:
-  build:
-
+  job-sample:
     runs-on: ubuntu-latest
 
     steps:

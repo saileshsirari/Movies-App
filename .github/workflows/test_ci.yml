@@ -1,0 +1,16 @@
+name: Android CI
+
+on:
+  workflow_dispatch:
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: set up JDK 11
+      uses: actions/setup-java@v4
+    - name: Test command
+      run: echo hello world!
+
+

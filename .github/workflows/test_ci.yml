@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+     - uses: actions/checkout@v4
       
-    - name: Test command
-      uses: echo hello world!
+     - name: Test command
+      run: echo hello world!
 
 

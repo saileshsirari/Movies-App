@@ -1,7 +1,7 @@
-name: Android CI
+name: Lint debug
 
 on:
-  workflow_dispatch:
+  workflow_call:
 jobs:
   lint:
     name: Linting debug variant

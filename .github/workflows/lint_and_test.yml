@@ -1,0 +1,15 @@
+name: Android CI
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  lint:
+    name: Debug lint
+    uses: ./.github/workflows/lint_debug.yml
+  test:
+    name: Test
+    uses: ./.github/workflows/test_app.yml
+
+

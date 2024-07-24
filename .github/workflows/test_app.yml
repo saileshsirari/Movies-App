@@ -21,7 +21,7 @@ jobs:
       uses: gradle/gradle-build-action@v3
     - name: chmod
       run: chmod +x ./gradlew
-    - name: lintDebug
+    - name: lintDebug test
       run: ./gradlew testDebugUnitTest
 
 

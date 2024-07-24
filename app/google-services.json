@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "90511390645",
+    "project_id": "music-ed5da",
+    "storage_bucket": "music-ed5da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90511390645:android:ed12d863cf6a6e8ace4bfc",
+        "android_client_info": {
+          "package_name": "apps.sai.com.movieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90511390645-md51hogqfkeqj5fj5s1alt62788qehq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1mndzNc2mHzxUssppoP8HMcG1ZzQNNgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90511390645-md51hogqfkeqj5fj5s1alt62788qehq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90511390645:android:878874f3be4b582dce4bfc",
+        "android_client_info": {
+          "package_name": "com.bracketcove.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90511390645-md51hogqfkeqj5fj5s1alt62788qehq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1mndzNc2mHzxUssppoP8HMcG1ZzQNNgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90511390645-md51hogqfkeqj5fj5s1alt62788qehq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90511390645:android:0f1ebe07ce24b9f3ce4bfc",
+        "android_client_info": {
+          "package_name": "frees.com.beautifulapps.media.music.musicplayer.search.player"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90511390645-md51hogqfkeqj5fj5s1alt62788qehq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1mndzNc2mHzxUssppoP8HMcG1ZzQNNgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90511390645-md51hogqfkeqj5fj5s1alt62788qehq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

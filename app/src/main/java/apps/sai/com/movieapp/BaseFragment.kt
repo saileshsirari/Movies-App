@@ -18,6 +18,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.zip
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<V : BaseViewModel> : Fragment() {
     private var job: Job? = null
@@ -43,10 +44,9 @@ abstract class BaseFragment<V : BaseViewModel> : Fragment() {
         }
     }
 
-    @OptIn(FlowPreview::class)
     fun loadMovies(flow: Flow<PagingData<Movie>>, adapter: MovieAdapter) {
         job?.cancel()
-        job = lifecycleScope.launchWhenStarted {
+        job = lifecycleScope.launch {
             viewModel.genres().zip(flow) { genreResponse, pagingData ->
                 pagingData.map { movie ->
                     genreResponse.genres.filter { genre ->

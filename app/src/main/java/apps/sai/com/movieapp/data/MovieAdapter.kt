@@ -1,23 +1,20 @@
 package apps.sai.com.movieapp.data
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import apps.sai.com.movieapp.databinding.ListItemMovieBinding
+import apps.sai.com.movieapp.ui.MovieItem
 
 
-class MovieAdapter constructor(private val onSelect: (Movie) -> Unit) :
+class MovieAdapter(private val onSelect: (Movie) -> Unit) :
     PagingDataAdapter<Movie, MovieAdapter.GalleryViewHolder>(GalleryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         return GalleryViewHolder(
-            ListItemMovieBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            ComposeView(parent.context)
         )
     }
 
@@ -29,25 +26,19 @@ class MovieAdapter constructor(private val onSelect: (Movie) -> Unit) :
     }
 
     class GalleryViewHolder(
-        private val binding: ListItemMovieBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        init {
-
-        }
+          private val composeView: ComposeView
+    ) : RecyclerView.ViewHolder(composeView.rootView) {
 
         fun bind(item: Movie, onSelect: (Movie) -> Unit) {
-            binding.apply {
-                movie = item
-                setClickListener { _ ->
-                    movie?.let { movie ->
-                        onSelect(movie)
-                    }
-                }
-                executePendingBindings()
+            composeView.setContent {
+                MovieItem(movie = item, modifier = Modifier, onClick ={
+                    onSelect(item)
+                })
             }
         }
     }
 }
+
 
 private class GalleryDiffCallback : DiffUtil.ItemCallback<Movie>() {
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
